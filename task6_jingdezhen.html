@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>专列英语实训</title>
+<style>
+:root{--r:#8b1a1a;--g:#d4a24c;--bg:#fdf8f0;--tx:#3a2a2a;--mu:#8a7a74;--bd:#eadfce;--tn:#fbeeee}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.65 "Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
+.hd{position:sticky;top:0;z-index:9;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;background:linear-gradient(90deg,#6e1212,#9c2f2f);color:#fff;border-bottom:2px solid var(--g)}
+.hd small{opacity:.8}
+nav{display:flex;gap:4px;flex:1;justify-content:center;flex-wrap:wrap}
+nav button,.hd>button{border:0;border-radius:16px;padding:5px 12px;background:none;color:#fff;font:inherit;cursor:pointer}
+nav button.on{background:var(--g);color:#4a1010;font-weight:700}
+.wrap{max-width:980px;margin:0 auto;padding:16px}
+.tab[hidden]{display:none}
+h1{margin:4px 0 12px;font-size:22px;color:var(--r)}
+h2{margin:0 0 10px;font-size:16px;color:var(--r)}
+h3{margin:14px 0 8px;font-size:14px;color:var(--r)}
+.card{position:relative;overflow:hidden;background:#fff;border-radius:12px;padding:20px 20px 16px;margin:0 0 16px;box-shadow:0 2px 10px #8b1a1a14}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--r),var(--g))}
+.note,.mu{color:var(--mu)}.note{font-size:13px;margin:4px 0 10px}
+.tip{background:#fbf3e4;border-left:4px solid var(--g);border-radius:6px;padding:10px 14px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.sc{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid var(--bd);padding:6px 8px;text-align:left;vertical-align:middle}
+th{background:var(--tn);color:var(--r);white-space:nowrap}
+td.r{color:var(--r);font-weight:700;text-align:center}
+input[type=number]{width:68px;padding:5px 6px;border:1px solid var(--bd);border-radius:6px;font:inherit}
+input[type=text],textarea,select{width:100%;padding:7px 9px;border:1px solid var(--bd);border-radius:6px;font:inherit;background:#fffdf9}
+textarea{min-height:60px;resize:vertical}
+label{display:block;margin:10px 0 4px;font-weight:700;color:var(--r)}
+:focus-visible{outline:2px solid var(--g);outline-offset:1px}
+.bt{padding:5px 14px;border:1px solid var(--r);border-radius:18px;background:#fff;color:var(--r);font:inherit;cursor:pointer}
+.bt.pri{background:var(--r);color:#fff}.bt:hover{background:var(--tn)}.bt.pri:hover{background:#a52a2a}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.vg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.vc{border:1px solid var(--bd);border-radius:10px;padding:10px 12px;background:#fffdf9}
+.vc b{color:var(--r)}
+.ln{border:1px solid var(--bd);border-left:4px solid var(--g);border-radius:8px;padding:8px 12px;margin:8px 0}
+.ln.q{border-left-color:#3b6ea8;background:#f3f8fd}
+.en{font-weight:600}.zh{color:var(--mu);font-size:13px}
+.bb{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px}
+.bb .bt{padding:3px 11px;font-size:13px}
+.rs{font-size:13px}.ok{color:#2e7d5b}.no{color:#b03030}
+.tg{display:inline-block;font-size:12px;color:#3b6ea8;margin-right:6px}
+.dl{border-left:4px solid var(--g);background:#fff8ec;border-radius:8px;padding:8px 12px;margin:8px 0}
+.dl.p{border-left-color:#3b6ea8;background:#f3f8fd}
+.dl b{font-size:12px;color:var(--mu)}
+.chips{max-height:150px;overflow:auto;border:1px solid var(--bd);border-radius:8px;padding:6px;background:#faf6ef}
+.chip{margin:2px;padding:2px 9px;border:1px dashed #cdbda4;border-radius:12px;background:#fff;font:12px inherit;cursor:pointer;text-align:left}
+.tn{display:grid;grid-template-columns:110px 1fr auto;gap:8px;margin:8px 0;align-items:start}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}
+.st{border:1px solid var(--bd);border-radius:10px;padding:8px 12px;background:#fffdf9}
+.st span{display:block;color:var(--mu);font-size:12px}.st b{font-size:20px;color:var(--r)}
+.tot{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-radius:10px;color:#fff;background:linear-gradient(90deg,var(--r),var(--g));font-weight:700}
+.tot b{font-size:30px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;margin-top:14px}
+@media(max-width:700px){.two,.tn{grid-template-columns:1fr}}
+.lg{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;font-size:12px;color:var(--mu)}
+.lg i{display:inline-block;width:14px;height:3px;margin-right:4px;vertical-align:middle}
+svg{display:block;margin:0 auto;max-width:300px;width:100%;height:auto}
+footer{text-align:center;color:var(--mu);font-size:12px;padding:16px}
+@media print{.hd{display:none}.tab{display:block!important}.card{box-shadow:none;break-inside:avoid}}
+
+.hd .export-btn{background:#f3d28b;color:#4a1010;font-weight:700;border:1px solid #e7bf68;white-space:nowrap}
+.hd .export-btn:hover{background:#ffe4a8}
+.export-hint{font-size:12px;color:#735d3b;background:#fff7e7;border:1px solid #f0dfbd;border-radius:8px;padding:8px 12px;margin:8px 0 14px}
+@media(max-width:760px){.hd .export-btn{padding:5px 9px;font-size:12px}}
+
+</style>
+</head>
+<body>
+<header class="hd"><b id="hb"></b><small id="hs"></small><nav id="nv"></nav><button class="export-btn" data-a="exportAll" type="button">📦 下载学习成果</button><button id="pr">🖨 打印</button></header>
+<main class="wrap">
+
+<section class="tab" id="tab0">
+  <h1 id="t0h"></h1><p class="note" id="t0s"></p>
+  <div class="export-hint">完成本任务后，点击页面顶部“📦 下载学习成果”，即可导出本组成绩、词汇跟读记录、脚本与已保存录音，提交给教师。</div>
+  <div class="card"><h2>小组基本信息</h2>
+    <div class="grid">
+      <div><label for="gc">班级</label><input class="sv" type="text" id="gc" placeholder="请输入班级"></div>
+      <div><label for="gname">小组名称</label><input class="sv" type="text" id="gname" placeholder="如：第1组 / 乘务一组"></div>
+      <div><label for="gno">小组编号</label><input class="sv" type="text" id="gno" placeholder="如：G01"></div>
+      <div><label for="gt">实训任务</label><input class="sv" type="text" id="gt"></div>
+      <div><label for="gtea">指导教师</label><input class="sv" type="text" id="gtea" placeholder="请输入姓名"></div>
+    </div>
+    <p class="note">填写内容自动保存在本机浏览器中。</p>
+  </div>
+  <div class="card"><h2>任务说明</h2><p id="intro"></p><div class="tip" id="feat"></div></div>
+</section>
+
+<section class="tab" id="tab1" hidden>
+  <h1>案例信息</h1>
+  <div class="card"><h2 id="ch"></h2>
+    <div class="grid">
+      <div><label for="cs1" style="margin-top:0">车次</label><input class="sv" type="text" id="cs1" placeholder="请填写案例车次"></div>
+      <div><label for="cs2" style="margin-top:0">日期</label><input class="sv" type="text" id="cs2" placeholder="请填写案例日期"></div>
+      <div><label for="cs3" style="margin-top:0">车型</label><input class="sv" type="text" id="cs3" placeholder="请填写动车组车型"></div>
+    </div>
+    <div class="tip" id="stg"></div><div class="tip" id="cdsc"></div><div class="tip" id="bri"></div>
+    <div class="grid" id="sg"></div>
+    <div class="tip" id="ckey"></div>
+  </div>
+</section>
+<section class="tab" id="tab2" hidden></section>
+<section class="tab" id="tab3" hidden></section>
+<section class="tab" id="tab4" hidden></section>
+<section class="tab" id="tab5" hidden></section>
+<section class="tab" id="tab6" hidden></section>
+</main>
+<footer id="ft"></footer>
+
+<script>
+/* ============================================================
+   专列英语实训系统 · 任务模板
+   用法：复制本文件，只修改下面这一个 TASK 对象，其余代码不要动。
+   ① id 每个任务必须不同（用来隔离各任务的本地数据）。
+   ② scenarios 必须正好 4 个情境，dialogs 必须正好 4 段对话。
+   ③ 文本里不要出现反引号 ` 和 ${ 。需要加粗可用 <b>…</b>。
+   ④ 英文句子里的引号和撇号请用 “ ” ’ ，不要用直引号。
+   ============================================================ */
+const TASK={
+  id:'task6',
+  icon:'🚄',
+  brand:'百工专列',
+  station:'景德镇站',
+  short:'景德镇站',
+  title:'百工专列·景德镇站',
+  project:'一带一路文化专列',
+  slogan:'用英语讲好中国故事',
+
+  intro:`本实训基于“百工专列”开往景德镇的高铁乘务服务案例设计。围绕<b>登车迎客、车厢广播、主题特产销售、车厢主题互动</b>四大情境，通过词汇跟读评分、句型逐句学习、对话卡片演练、模拟展演编排、多元评价五个环节，掌握 40 个陶瓷与工匠文化核心词汇、4 类情境句型和 4 个完整对话，感悟<b>青花瓷、制瓷工艺</b>与中国工匠精神。本任务是“一带一路文化专列”的一站，学习目标是用英语讲好中国故事。`,
+  feature:`① 每个单词和每个句子都可点击发音；② 跟读后系统按识别结果给出得分；③ 对话卡片支持整段播放与本组录音；④ 展演脚本含“旅客文化追问”，并留有 AI 润色稿与修改说明；⑤ 成绩由系统、教师、其他小组和本组共同评价。`,
+
+  caseStage:`全程乘务服务（登车迎客 → 车厢广播 → 特产销售 → 主题互动 → 到站送别）`,
+  caseDesc:`在一趟开往景德镇的“百工专列”高铁上，4 人乘务组为旅客提供全程服务：<b>登车迎客</b>（检票验票、座位指引、行李协助），<b>车厢广播</b>（欢迎词、瓷器与工匠精神介绍、到站提醒），<b>主题特产销售</b>（青花茶杯、蛋壳瓷杯、瓷风铃、扫码支付与优惠），<b>车厢主题互动</b>（制瓷工序问答、青花与高岭土知识、奖品赠送）。乘务员需用英语专业、礼貌、热情地与旅客沟通，并在服务中传递<b>瓷文化</b>与<b>工匠精神</b>。`,
+  caseKey:`4 人乘务组分工协作，覆盖四大核心情境。展演要求：每组选一个场景，不超过 3 分钟，至少包含 1 个旅客文化追问。`,
+  bri:`景德镇瓷器沿海上丝绸之路销往亚洲、非洲和欧洲，英语中的 china 一词也与中国瓷器密切相关。瓷器是最早走向世界的中国名片之一，也是用“工匠精神”向各国旅客讲述中国故事的好载体。`,
+
+  vocabTitle:'陶瓷与工匠文化词汇',
+  vocab:`
+# 服务通用词
+themed train|θiːmd treɪn|主题列车
+Craftsmanship Themed Train|ˈkrɑːftsmənʃɪp θiːmd treɪn|百工专列
+steward|ˈstjuːəd|乘务员
+carriage|ˈkærɪdʒ|车厢
+platform|ˈplætfɔːm|站台
+boarding|ˈbɔːdɪŋ|登车
+announcement|əˈnaʊnsmənt|广播通知
+souvenir|ˌsuːvəˈnɪə|纪念品
+passenger|ˈpæsɪndʒə|旅客
+onboard service|ˈɒnbɔːd ˈsɜːvɪs|车厢服务
+# 陶瓷与工匠文化词
+Jingdezhen|ˌdʒɪŋdəˈdʒen|景德镇
+porcelain|ˈpɔːsəlɪn|瓷器
+kaolin|ˈkeɪəlɪn|高岭土
+clay|kleɪ|黏土
+potter’s wheel|ˈpɒtəz wiːl|拉坯转盘
+glaze|ɡleɪz|釉
+kiln|kɪln|窑
+firing|ˈfaɪərɪŋ|烧制
+blue-and-white porcelain|ˌbluː ənd ˈwaɪt ˈpɔːsəlɪn|青花瓷
+famille rose porcelain|ˌfæmiː ˈrəʊz ˈpɔːsəlɪn|粉彩瓷
+eggshell porcelain|ˈeɡʃel ˈpɔːsəlɪn|蛋壳瓷
+hand-painted|ˌhænd ˈpeɪntɪd|手绘的
+imperial kiln|ɪmˈpɪəriəl kɪln|御窑
+craftsman|ˈkrɑːftsmən|工匠
+craftsmanship|ˈkrɑːftsmənʃɪp|工艺
+teacup|ˈtiːkʌp|茶杯
+vase|vɑːz|花瓶
+ceramics|səˈræmɪks|陶瓷
+pattern|ˈpætn|纹样
+Maritime Silk Road|ˈmærɪtaɪm sɪlk rəʊd|海上丝绸之路
+# 一带一路文化词
+Belt and Road Initiative|ˌbelt ənd ˈrəʊd ɪˈnɪʃətɪv|“一带一路”倡议
+cultural exchange|ˈkʌltʃərəl ɪksˈtʃeɪndʒ|文化交流
+mutual learning|ˈmjuːtʃuəl ˈlɜːnɪŋ|互学互鉴
+Silk Road spirit|sɪlk rəʊd ˈspɪrɪt|丝路精神
+# 拓展词
+fragile|ˈfrædʒaɪl|易碎的
+smooth|smuːð|光滑的
+delicate|ˈdelɪkət|精细的
+patient|ˈpeɪʃnt|耐心的
+skillful|ˈskɪlfl|技艺精湛的
+tradition|trəˈdɪʃn|传统
+`,
+
+  scenarios:[
+    {name:'登车迎客',en:'Boarding & Welcome',
+     sents:`
+Good morning, welcome aboard the Craftsmanship Themed Train.|早上好，欢迎乘坐百工专列。
+May I see your ticket and ID card, please?|请出示您的车票和身份证好吗？
+Your seat is 11B in Car 7. Please go this way.|您的座位是7号车厢11B，请这边走。
+Let me help you with your carry-on.|我来帮您拿随身行李。
+Please place your suitcase on the overhead rack.|请把行李箱放在行李架上。
+Mind your step and hold the handrail, please.|请小心脚下，扶好扶手。
+This train is decorated with blue-and-white porcelain patterns from Jingdezhen.|这列火车以景德镇的青花瓷纹样装饰。
+If you need anything, please let me know.|如有需要，请随时告诉我。`,
+     qa:`
+Why is this train called the Craftsmanship Themed Train?|Because it celebrates the skills of Chinese craftsmen, especially porcelain makers.
+What do the blue patterns on the wall show?|They are blue-and-white porcelain patterns, such as flowers and waves.`},
+    {name:'车厢广播',en:'Onboard Announcements',
+     sents:`
+Ladies and gentlemen, welcome aboard the Craftsmanship Themed Train, bound for Jingdezhen, the porcelain capital of China.|女士们，先生们，欢迎乘坐百工专列，本次列车开往中国瓷都景德镇。
+Jingdezhen has made porcelain for more than a thousand years.|景德镇制瓷已有一千多年的历史。
+Porcelain is made from kaolin clay, which is shaped, glazed, and fired in a kiln.|瓷器以高岭土制成，经过成型、施釉，再入窑烧制。
+Blue-and-white porcelain is famous for its deep blue patterns on a white surface.|青花瓷以白底上的深蓝纹样而闻名。
+Eggshell porcelain is so thin that it looks like an eggshell.|蛋壳瓷薄得像蛋壳一样。
+In the Ming and Qing dynasties, imperial kilns in Jingdezhen made porcelain for the court.|明清时期，景德镇的御窑为宫廷制作瓷器。
+Chinese porcelain travelled by sea to Asia, Africa, and Europe along the Maritime Silk Road.|中国瓷器沿海上丝绸之路远销亚洲、非洲和欧洲。
+During today’s journey, you will have the chance to learn about the art of porcelain and the spirit of Chinese craftsmen.|在今天的旅途中，您将有机会了解瓷器艺术和中国工匠精神。
+We will arrive at Jingdezhen in about ten minutes. Please take all your belongings with you.|列车将在约十分钟后到达景德镇，请带好您的随身物品。`,
+     qa:`
+Why is porcelain called “china” in English?|Because porcelain from China became famous all over the world.
+How hot is the kiln?|It can reach about 1,300 degrees Celsius, so the clay turns into hard porcelain.`},
+    {name:'主题特产销售',en:'Specialty Product Sales',
+     sents:`
+Would you like to see some local specialties from Jingdezhen?|您想看看景德镇的当地特产吗？
+This is a blue-and-white teacup, a classic work of Jingdezhen craftsmen.|这是一只青花茶杯，景德镇工匠的经典之作。
+It is hand-painted with fine brushes.|它由手工用细笔彩绘。
+This is an eggshell porcelain cup. It is thin, light, and smooth.|这是蛋壳瓷杯，轻薄光滑。
+This is a porcelain wind chime. It makes a clear and gentle sound.|这是瓷风铃，声音清脆柔和。
+Please hold it carefully because porcelain is fragile.|请小心拿稳，因为瓷器易碎。
+The price is 98 yuan, and we offer a 10% discount today.|价格是98元，今天我们提供九折优惠。
+You can scan the QR code to pay.|您可以扫码支付。
+Would you like a gift box? It’s complimentary.|需要礼盒吗？免费提供。`,
+     qa:`
+What does “blue-and-white” mean?|It means blue patterns painted on white porcelain.
+How can I take care of porcelain?|Please keep it away from falls, and wash it gently by hand.`},
+    {name:'车厢主题互动',en:'Onboard Theme Interaction',
+     sents:`
+Welcome to our porcelain culture corner.|欢迎来到我们的瓷文化角。
+Would you like to join our quiz about Jingdezhen porcelain?|您愿意参加景德镇瓷器问答吗？
+What are the main steps of making porcelain?|制瓷的主要步骤有哪些？
+They are shaping the clay, painting, glazing, and firing in a kiln.|有塑形、彩绘、施釉和入窑烧制。
+Kaolin is a special white clay, and its name comes from Gaoling near Jingdezhen.|高岭土是一种特殊的白色黏土，其名称来自景德镇附近的高岭村。
+Every piece of porcelain needs patience, skill, and many steps.|每件瓷器都需要耐心、技艺和许多道工序。
+Porcelain from Jingdezhen connected China with the world, and it still tells Chinese stories today.|景德镇瓷器把中国与世界连接起来，至今仍在讲述中国故事。
+Thank you for participating. We hope you had a memorable time.|感谢参与，希望您度过了难忘的时光。`,
+     qa:`
+Why is Jingdezhen called the porcelain capital?|Because it has made fine porcelain for over a thousand years.
+What is kaolin?|It is a soft white clay used to make porcelain.
+How is Jingdezhen porcelain connected with the Belt and Road?|Porcelain travelled along the Maritime Silk Road, so it became a symbol of cultural exchange.`}
+  ],
+
+  dialogs:[
+`A:Good morning, welcome aboard the Craftsmanship Themed Train.
+P:Thank you. Here is my ticket.
+A:May I see your ticket and ID card, please?
+P:Here you are.
+A:Your seat is 11B in Car 7. Please go this way.
+P:This train looks lovely. What are the blue patterns?
+A:This train is decorated with blue-and-white porcelain patterns from Jingdezhen.
+P:How interesting! Could you help me with my bag?
+A:Let me help you with your carry-on.
+P:Thank you so much.
+A:If you need anything, please let me know.`,
+`A:Ladies and gentlemen, welcome aboard the Craftsmanship Themed Train, bound for Jingdezhen, the porcelain capital of China.
+P:Wow, that sounds wonderful! How long has Jingdezhen made porcelain?
+A:Jingdezhen has made porcelain for more than a thousand years.
+P:How is porcelain made?
+A:Porcelain is made from kaolin clay, which is shaped, glazed, and fired in a kiln.
+P:I can’t wait to see it in Jingdezhen.
+A:During today’s journey, you will have the chance to learn about the art of porcelain and the spirit of Chinese craftsmen.`,
+`A:Would you like to see some local specialties from Jingdezhen?
+P:Sure. What do you have?
+A:This is a blue-and-white teacup, a classic work of Jingdezhen craftsmen.
+P:It’s beautiful! Is it painted by hand?
+A:It is hand-painted with fine brushes.
+P:Wonderful. Do you have something very thin?
+A:This is an eggshell porcelain cup. It is thin, light, and smooth.
+P:Nice. How much is it?
+A:The price is 98 yuan, and we offer a 10% discount today.
+P:That sounds good. Can I pay by phone?
+A:You can scan the QR code to pay.
+P:Great, I’ll take the cup.
+A:Please hold it carefully because porcelain is fragile.`,
+`A:Welcome to our porcelain culture corner.
+P:Thank you! What is this corner about?
+A:Would you like to join our quiz about Jingdezhen porcelain?
+P:I’d love to. What’s the first question?
+A:What are the main steps of making porcelain?
+P:Is firing in a kiln one of them?
+A:They are shaping the clay, painting, glazing, and firing in a kiln.
+P:Why is Jingdezhen porcelain important to the world?
+A:Porcelain from Jingdezhen connected China with the world, and it still tells Chinese stories today.
+A:Thank you for participating. We hope you had a memorable time.`
+  ],
+
+  extra:`
+Thank you. Here is my ticket.|谢谢，这是我的车票。
+Here you are.|给您。
+This train looks lovely. What are the blue patterns?|这列车真可爱，那些蓝色图案是什么？
+How interesting! Could you help me with my bag?|真有意思！您能帮我拿一下包吗？
+Thank you so much.|非常感谢。
+Wow, that sounds wonderful! How long has Jingdezhen made porcelain?|哇，太棒了！景德镇制瓷有多久了？
+How is porcelain made?|瓷器是怎么制成的？
+I can’t wait to see it in Jingdezhen.|我迫不及待想在景德镇看到它。
+Sure. What do you have?|好的，你们有什么？
+It’s beautiful! Is it painted by hand?|太漂亮了！是手绘的吗？
+Wonderful. Do you have something very thin?|太好了，有很薄的吗？
+Nice. How much is it?|不错，多少钱？
+That sounds good. Can I pay by phone?|不错，可以用手机付款吗？
+Great, I’ll take the cup.|好的，我要这个杯子。
+Thank you! What is this corner about?|谢谢！这个角落是做什么的？
+I’d love to. What’s the first question?|我很乐意。第一个问题是什么？
+Is firing in a kiln one of them?|入窑烧制是其中一步吗？
+Why is Jingdezhen porcelain important to the world?|景德镇瓷器为什么对世界很重要？`
+};
+
+/* ===== 以下为系统代码，一般不需要修改 ===== */
+const PFX='qz_'+TASK.id+'_';
+const $=id=>document.getElementById(id),Q=(s,e=document)=>[...e.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(PFX+k))||d}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem(PFX+k,JSON.stringify(v))}catch(e){}};
+const f1=x=>Math.round(x*10)/10;
+const norm=s=>s.split('\n').map(l=>l.trim()).filter(Boolean).join('\n');
+const VOC=[],VG={};
+norm(TASK.vocab).split('\n').forEach(l=>{if(l[0]=='#')VG[VOC.length]=l.slice(1).trim();else VOC.push(l.split('|'))});
+const SC=TASK.scenarios.map(s=>[s.name,s.en,norm(s.sents),norm(s.qa)]);
+const DL=TASK.dialogs.map(s=>norm(s).split('\n'));
+const EX=norm(TASK.extra);
+const ZH={};
+[EX,...SC.map(s=>s[2])].forEach(b=>b.split('\n').forEach(l=>{const p=l.split('|');ZH[p[0]]=p[1]}));
+const ROLES=['列车长','乘务员1','乘务员2','列车员','旅客'];
+const TABS=['👥 小组','📋 案例信息','📖 词汇','💬 句型','🗂 对话卡片','🎭 模拟展演','⭐ 多元评价'];
+
+/* ========== 语音：发音与跟读评分 ========== */
+let tok=0;
+function say(t,o={}){const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.9;u.pitch=o.pitch||1;if(o.end)u.onend=o.end;speechSynthesis.speak(u)}
+function score(t,b){
+  const R=window.SpeechRecognition||window.webkitSpeechRecognition,o=b.parentNode.querySelector('.rs');
+  if(!R){o.textContent='此浏览器不支持语音识别，请使用 Chrome 或 Edge';return}
+  const r=new R();r.lang='en-US';o.textContent='请跟读…';
+  r.onresult=e=>{
+    const h=e.results[0][0].transcript,w=s=>s.toLowerCase().replace(/[^a-z0-9\s]/g,'').split(/\s+/).filter(Boolean);
+    const rf=w(t),hy=w(h);let m=0;
+    rf.forEach(x=>{const i=hy.indexOf(x);if(i>-1){m++;hy.splice(i,1)}});
+    const sc=Math.round(m/rf.length*100);
+    o.innerHTML=`<b class="${sc>=80?'ok':'no'}">${sc} 分</b> <span class="mu">听到：${esc(h)}</span>`;
+    if(b.dataset.v){const v=ld('v',{});v[b.dataset.v]=Math.max(v[b.dataset.v]||0,sc);sv('v',v);const vt=ld('vt',{});vt[b.dataset.v]={target:t,recognized:h,score:sc,updatedAt:new Date().toISOString()};sv('vt',vt)}
+  };
+  r.onerror=()=>{o.textContent='未识别到声音，请重试'};
+  r.start();
+}
+const btn=(t,v,init)=>`<div class="bb"><button class="bt" data-a="say" data-t="${esc(t)}">🔊 发音</button><button class="bt pri" data-a="rec" data-t="${esc(t)}"${v?` data-v="${esc(v)}"`:''}>🎤 跟读评分</button><span class="rs">${init||''}</span></div>`;
+
+/* ========== 各页面生成 ========== */
+$('sg').innerHTML=SC.map((s,i)=>`<div class="ln"><div class="zh">情境${'一二三四'[i]} / Scenario ${i+1}</div><div class="en">${s[1]}</div><div>${s[0]}</div></div>`).join('');
+
+function vocab(){
+  const v=ld('v',{});let h='<h1>词汇</h1><div class="card"><h2>'+TASK.vocabTitle+'</h2><p class="note">共 '+VOC.length+' 个核心词汇。点击“发音”听标准发音，点击“跟读评分”后跟读，系统给出得分（需使用 Chrome 或 Edge 浏览器）。</p>';
+  VOC.forEach((w,i)=>{
+    if(VG[i])h+=`${i?'</div>':''}<h3>${VG[i]}</h3><div class="vg">`;
+    h+=`<div class="vc"><b>${w[0]}</b><div class="mu">/${w[1]}/</div><div>n. ${w[2]}</div>${btn(w[0],w[0],v[w[0]]!=null?'最高 '+v[w[0]]+' 分':'')}</div>`;
+  });
+  return h+'</div></div>';
+}
+function sents(){
+  let h='<h1>句型</h1>';
+  SC.forEach((s,i)=>{
+    h+=`<div class="card"><h2>情境${'一二三四'[i]}：${s[0]}</h2>`;
+    s[2].split('\n').forEach(l=>{const p=l.split('|');h+=`<div class="ln"><div class="en">${p[0]}</div><div class="zh">${p[1]}</div>${btn(p[0])}</div>`});
+    h+='<h3>旅客文化追问与参考回答</h3>';
+    s[3].split('\n').forEach(l=>{const p=l.split('|');h+=`<div class="ln q"><span class="tg">旅客追问</span><span class="en">${p[0]}</span>${btn(p[0])}<div class="zh" style="margin-top:6px">参考回答：${p[1]}</div></div>`});
+    h+='</div>';
+  });
+  return h;
+}
+function dialogs(){
+  const rc=ld('r',{});
+  let h='<h1>对话卡片</h1><p class="note">点击句子下方按钮可整句朗读。每个情境可整段播放，也可用麦克风录下本组的朗读。录音停止后会尝试保存在本机浏览器；完成后可从页面顶部导出学习成果包。</p>';
+  DL.forEach((L,i)=>{
+    h+=`<div class="card"><h2>情境${'一二三四'[i]}：${SC[i][0]}</h2>`;
+    L.forEach(l=>{const t=l.slice(2),p=l[0]=='P';h+=`<div class="dl${p?' p':''}"><b>${p?'旅客':'列车员'}</b><div class="en">${t}</div><div class="zh">${ZH[t]||''}</div><div class="bb"><button class="bt" data-a="say" data-t="${esc(t)}">🔊 整句朗读</button></div></div>`});
+    h+=`<div class="bar"><button class="bt" data-a="dp" data-i="${i}">▶ 整段播放</button><button class="bt" data-a="dr" data-i="${i}">⏺ 录音</button><button class="bt" data-a="dy" data-i="${i}">🎧 播放录音</button><button class="bt" data-a="dx" data-i="${i}">🗑 删除录音</button><span class="note" id="ds${i}">${rc[i]?'已有录音记录':'未录音'}</span></div></div>`;
+  });
+  return h;
+}
+function playAll(i){
+  speechSynthesis.cancel();const my=++tok,L=DL[i];let k=0;
+  (function nx(){if(k>=L.length||my!=tok)return;const l=L[k++];say(l.slice(2),{pitch:l[0]=='P'?1.35:1,end:nx})})();
+}
+const rec={};let mr=null;const audioSavePromises={};let activeRecButton=null;
+async function recTog(i,b){
+  const s=$('ds'+i);
+  if(mr&&mr.state=='recording'){mr.stop();if(activeRecButton)activeRecButton.textContent='⏺ 录音';activeRecButton=null;return}
+  try{
+    const st=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[];
+    const recorder=new MediaRecorder(st);mr=recorder;activeRecButton=b;
+    recorder.ondataavailable=e=>ch.push(e.data);
+    recorder.onstop=()=>{st.getTracks().forEach(t=>t.stop());const blob=new Blob(ch,{type:recorder.mimeType||'audio/webm'});rec[i]=URL.createObjectURL(blob);const f=ld('r',{});f[i]=1;sv('r',f);s.textContent='录音完成，正在保存到本机…';audioSavePromises[i]=(async()=>{try{await saveAudioBlob(i,blob);s.textContent='录音已保存在本机，可播放并导出'}catch(err){s.textContent='本机持久保存不可用，系统将尝试立即下载录音';downloadBlob(blob,`${safeName(TASK.station)}_情境${'一二三四'[i]}_录音.webm`);alert('浏览器未能持久保存录音。系统已尝试单独下载该录音，请保留音频文件。');}})();if(mr===recorder)mr=null;if(activeRecButton)activeRecButton.textContent='⏺ 录音';activeRecButton=null;};
+    recorder.start();b.textContent='⏹ 停止';s.textContent='录音中…';
+  }catch(e){s.textContent='无法使用麦克风，请检查浏览器权限'}
+}
+
+
+/* ========== 本地录音持久保存与学习成果导出（新增） ========== */
+const AUDIO_DB_NAME='hsr_task_audio_v1';
+const AUDIO_STORE='recordings';
+let audioDbPromise=null;
+function openAudioDB(){
+  if(!('indexedDB' in window)) return Promise.reject(new Error('当前浏览器不支持本地录音持久保存'));
+  if(audioDbPromise) return audioDbPromise;
+  audioDbPromise=new Promise((resolve,reject)=>{
+    const req=indexedDB.open(AUDIO_DB_NAME,1);
+    req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(AUDIO_STORE))db.createObjectStore(AUDIO_STORE,{keyPath:'key'})};
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error||new Error('无法打开本地录音存储'));
+    req.onblocked=()=>reject(new Error('本地录音存储被其他页面占用，请关闭重复页面后重试'));
+  });
+  return audioDbPromise;
+}
+async function saveAudioBlob(i,blob){
+  const db=await openAudioDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(AUDIO_STORE,'readwrite');
+    tx.objectStore(AUDIO_STORE).put({key:TASK.id+'_'+i,taskId:TASK.id,index:i,mime:blob.type||'audio/webm',blob,savedAt:new Date().toISOString()});
+    tx.oncomplete=()=>resolve(true);tx.onerror=()=>reject(tx.error||new Error('录音保存失败'));tx.onabort=()=>reject(tx.error||new Error('录音保存中断'));
+  });
+}
+async function getAudioRecord(i){
+  const db=await openAudioDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction(AUDIO_STORE,'readonly'),req=tx.objectStore(AUDIO_STORE).get(TASK.id+'_'+i);
+    req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error||new Error('读取录音失败'));
+  });
+}
+async function deleteAudioRecord(i){
+  try{const db=await openAudioDB();await new Promise((resolve,reject)=>{const tx=db.transaction(AUDIO_STORE,'readwrite');tx.objectStore(AUDIO_STORE).delete(TASK.id+'_'+i);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}catch(e){console.warn('删除录音文件失败：',e)}
+}
+function restoreRecordings(){
+  DL.forEach(async (_,i)=>{
+    try{
+      const item=await getAudioRecord(i);
+      const s=$('ds'+i);
+      if(item&&item.blob){rec[i]=URL.createObjectURL(item.blob);if(s)s.textContent='录音已保存在本机，可播放并导出'}
+      else if(s&&ld('r',{})[i])s.textContent='有旧录音标记，但没有可恢复的音频文件；请重新录制';
+    }catch(e){
+      const s=$('ds'+i);if(s&&ld('r',{})[i])s.textContent='有旧录音标记，但音频文件未持久保存；请重新录制';
+      console.warn('恢复录音失败：',e);
+    }
+  });
+}
+function safeName(s){return String(s||'未填写').replace(/[\\/:*?"<>|\r\n]+/g,'_').trim().slice(0,60)||'未填写'}
+function downloadBlob(blob,name){
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function zipCrc32(bytes){
+  let crc=-1;
+  for(let i=0;i<bytes.length;i++){crc^=bytes[i];for(let j=0;j<8;j++)crc=(crc>>>1)^((crc&1)?0xEDB88320:0)}
+  return (crc^(-1))>>>0;
+}
+function zipDosDate(d=new Date()){
+  const time=(d.getHours()<<11)|(d.getMinutes()<<5)|Math.floor(d.getSeconds()/2);
+  const date=((Math.max(1980,d.getFullYear())-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate();
+  return {time,date};
+}
+async function makeZip(files){
+  const enc=new TextEncoder(),parts=[],central=[];let offset=0;const dt=zipDosDate();
+  for(const f of files){
+    const name=enc.encode(f.name),data=f.data instanceof Blob?new Uint8Array(await f.data.arrayBuffer()):(f.data instanceof Uint8Array?f.data:enc.encode(String(f.data)));
+    const crc=zipCrc32(data),local=new Uint8Array(30+name.length),lv=new DataView(local.buffer);
+    lv.setUint32(0,0x04034b50,true);lv.setUint16(4,20,true);lv.setUint16(6,0x0800,true);lv.setUint16(8,0,true);
+    lv.setUint16(10,dt.time,true);lv.setUint16(12,dt.date,true);lv.setUint32(14,crc,true);lv.setUint32(18,data.length,true);lv.setUint32(22,data.length,true);lv.setUint16(26,name.length,true);lv.setUint16(28,0,true);local.set(name,30);
+    parts.push(local,data);
+    const c=new Uint8Array(46+name.length),cv=new DataView(c.buffer);
+    cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x0800,true);cv.setUint16(10,0,true);
+    cv.setUint16(12,dt.time,true);cv.setUint16(14,dt.date,true);cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,name.length,true);cv.setUint16(30,0,true);cv.setUint16(32,0,true);cv.setUint16(34,0,true);cv.setUint16(36,0,true);cv.setUint32(38,0,true);cv.setUint32(42,offset,true);c.set(name,46);central.push(c);offset+=local.length+data.length;
+  }
+  const centralSize=central.reduce((n,x)=>n+x.length,0),end=new Uint8Array(22),ev=new DataView(end.buffer);
+  ev.setUint32(0,0x06054b50,true);ev.setUint16(4,0,true);ev.setUint16(6,0,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);ev.setUint16(20,0,true);
+  return new Blob([...parts,...central,end],{type:'application/zip'});
+}
+function htmlEscape(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function getField(id){const el=$(id);return el?el.value:(ld('f',{})[id]||'')}
+function collectLearningData(){
+  const f=ld('f',{}),v=ld('v',{}),vt=ld('vt',{}),rflag=ld('r',{}),script=sc.map((rows,i)=>({scene:SC[i][0],lines:rows.map(x=>({role:x.r,text:x.t})),aiPolished:f['ai'+i]||'',revisionNote:f['am'+i]||''}));
+  const vocabList=VOC.map(x=>({word:x[0],phonetic:x[1],meaning:x[2],score:v[x[0]]??null,latestRecognition:vt[x[0]]||null}));
+  const dialogueCards=DL.map((rows,i)=>({scene:SC[i][0],lines:rows.map(l=>({speaker:l[0]=='P'?'旅客':'列车员',english:l.slice(2),chinese:ZH[l.slice(2)]||''}))}));
+  let scoreInfo=null;
+  try{const c=calc();scoreInfo={process:{vocabularyReading:Number(getField('ep0')||0),dialogueRecording:Number(getField('ep1')||0),scriptDraftAndRevision:Number(getField('ep2')||0),total:c.pr,max:30},presentation:{teacherScores:c.t,selfScores:c.s,peerScores:c.pa,peerGroupCount:c.n,teacherTotal:c.T,selfTotal:c.S,peerTotal:c.n?c.Pp:null,weightedScore:c.ex,max:70},total:c.total,max:100,seconds:c.sec,overTimeDeduction:c.ded,comments:{teacher:getField('ec0'),peer:getField('ec1'),selfReflection:getField('ec2')}}}catch(e){scoreInfo={note:'尚未填写或打开评价页面，暂未生成成绩计算结果。'};}
+  const peerRows=Q('#epb tr').map(tr=>Q('input',tr).map(el=>el.value));
+  return {
+    exportTitle:'项目八任务学习成果包',exportedAt:new Date().toISOString(),task:{id:TASK.id,title:TASK.title,station:TASK.station,brand:TASK.brand,project:TASK.project},
+    group:{className:getField('gc'),groupName:getField('gname'),groupNo:getField('gno'),taskName:getField('gt'),teacher:getField('gtea'),trainNo:getField('cs1'),date:getField('cs2'),trainModel:getField('cs3'),roles:['r0','r1','r2','r3'].map((id,i)=>({role:['列车长','乘务员1','乘务员2','列车员'][i],name:getField(id)}))},
+    vocabulary:{total:VOC.length,scoredCount:Object.keys(v).length,averageScore:Object.keys(v).length?Math.round(Object.values(v).reduce((a,b)=>a+Number(b||0),0)/Object.keys(v).length*10)/10:null,items:vocabList},
+    dialogueRecordFlags:rflag,dialogueCards,dialogueScripts:script,peerReviews:peerRows,scores:scoreInfo,
+    systemNotes:['数据保存在当前浏览器本机，不会自动同步到其他设备。','对话录音在停止录制后尝试保存到浏览器本地数据库；只有成功保存的音频才会被加入本成果包。','跟读得分按浏览器语音识别结果与目标词匹配比例计算，不属于专业音素级发音测评。','本成果包是学习过程记录，正式成绩以任课教师审核为准。']
+  };
+}
+function reportHtml(data,audioNames){
+  const g=data.group,s=data.scores||{},lines=data.dialogueScripts.map(x=>`<section><h2>${htmlEscape(x.scene)}</h2>${x.lines.map(l=>`<p><b>${htmlEscape(l.role)}：</b>${htmlEscape(l.text)}</p>`).join('')}<h3>AI润色稿</h3><p>${htmlEscape(x.aiPolished||'未填写')}</p><h3>修改说明</h3><p>${htmlEscape(x.revisionNote||'未填写')}</p></section>`).join('');
+  const audio=audioNames.map(x=>`<li>${htmlEscape(x)}</li>`).join('')||'<li>未找到已保存的录音文件</li>';
+  const score=s.total!=null?`<p>过程性成绩：${s.process.total}/30；展演折算：${s.presentation.weightedScore}/70；任务总评：${s.total}/100。</p>`:'<p>暂未生成完整成绩计算结果，请检查评价页面。</p>';
+  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>项目八学习成果报告</title><style>body{font:15px/1.7 Arial,'Microsoft YaHei',sans-serif;max-width:900px;margin:32px auto;padding:0 22px;color:#263445}h1,h2{color:#164f91}section{border-top:1px solid #ddd;padding:12px 0}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:7px;text-align:left} .meta{background:#f2f6fc;padding:14px;border-radius:8px}@media print{body{margin:12mm}}</style><h1>项目八任务学习成果报告</h1><div class="meta"><p>任务：${htmlEscape(data.task.title)}</p><p>班级：${htmlEscape(g.className)}　小组：${htmlEscape(g.groupName)}　编号：${htmlEscape(g.groupNo)}</p><p>指导教师：${htmlEscape(g.teacher)}　导出时间：${htmlEscape(data.exportedAt)}</p></div><h2>成绩记录</h2>${score}<p>文化词汇跟读：${data.vocabulary.scoredCount}/${data.vocabulary.total}项已有分数；平均最高得分：${data.vocabulary.averageScore??'暂无'}。</p><h2>录音文件</h2><ul>${audio}</ul><h2>脚本与修改记录</h2>${lines}<h2>系统说明</h2><ul>${data.systemNotes.map(x=>`<li>${htmlEscape(x)}</li>`).join('')}</ul></html>`;
+}
+async function exportLearningPackage(){
+  const btn=document.querySelector('.export-btn');if(btn){btn.disabled=true;btn.textContent='正在整理…'}
+  try{
+    await Promise.allSettled(Object.values(audioSavePromises));
+    const data=collectLearningData(),files=[],audioNames=[];
+    files.push({name:'01_学习成果.json',data:JSON.stringify(data,null,2)});
+    files.push({name:'02_学习成果报告.html',data:reportHtml(data,audioNames)});
+    const csvRows=[['词汇','音标','中文释义','最高跟读得分'],...data.vocabulary.items.map(x=>[x.word,x.phonetic,x.meaning,x.score??'未练习'])];
+    const csv='\ufeff'+csvRows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+    files.push({name:'03_词汇跟读记录.csv',data:csv});
+    const scriptTxt=data.dialogueScripts.map(x=>`【${x.scene}】\n${x.lines.map(l=>l.role+'：'+l.text).join('\n')}\n\n【AI润色稿】\n${x.aiPolished}\n【修改说明】\n${x.revisionNote}`).join('\n\n');
+    files.push({name:'04_脚本与修改记录.txt',data:scriptTxt});
+    for(let i=0;i<DL.length;i++){
+      let item=null;
+      try{item=await getAudioRecord(i)}catch(e){}
+      if((!item||!item.blob)&&rec[i]){try{const blob=await fetch(rec[i]).then(r=>r.blob());item={blob,mime:blob.type}}catch(_){}}
+      if(item&&item.blob){const ext=(item.blob.type||'audio/webm').includes('mp4')?'m4a':(item.blob.type||'').includes('ogg')?'ogg':'webm';const name=`录音/情境${'一二三四'[i]}_${['迎宾登车','车厢广播','特色商品推介','主题互动'][i]}.${ext}`;files.push({name,data:item.blob});audioNames.push(name)}
+    }
+    data.audioFiles=audioNames;
+    files[0].data=JSON.stringify(data,null,2);
+    files[1].data=reportHtml(data,audioNames);
+    files.push({name:'00_使用说明.txt',data:'本压缩包由高铁客运服务英语项目八实训系统在学生本地浏览器中导出。\n包含：学习基本信息、词汇跟读记录、脚本及AI修改说明、当前评价成绩和可成功读取的录音文件。\n请将本文件夹/压缩包提交给任课教师。\n注意：本地数据不会自动跨设备同步；正式成绩以教师审核为准。'});
+    const zip=await makeZip(files);
+    const group=safeName(data.group.groupName||data.group.groupNo||'学习小组');
+    downloadBlob(zip,`${safeName(data.task.station)}_${group}_学习成果.zip`);
+    if(btn)btn.textContent='✓ 已导出';
+    alert(`学习成果已导出。\n\n包含 ${audioNames.length} 段已保存录音、词汇跟读记录、脚本与评价数据。\n请将下载的ZIP文件提交给任课教师。${audioNames.length<DL.length?'\n\n提示：部分录音没有找到已保存的音频文件，请重新录制后再导出。':''}`);
+  }catch(e){console.error(e);alert('导出失败：'+(e.message||e)+'。请检查浏览器下载权限，或重新打开页面后再试。');}
+  finally{if(btn){btn.disabled=false;btn.textContent='📦 下载学习成果'}}
+}
+
+/* 模拟展演 */
+let sc=ld('sc',[[],[],[],[]]);
+function perf(){
+  let h='<h1>模拟展演</h1><div class="card"><h2>1. 角色分工（4 人一组）</h2><div class="grid">'+
+   [['列车长','Train Chief · 统筹与广播'],['乘务员1','CA1 · 迎宾'],['乘务员2','CA2 · 销售'],['列车员','Attendant · 互动']].map((r,i)=>`<div><label for="r${i}" style="margin-top:0">${r[0]}</label><div class="note" style="margin:0 0 4px">${r[1]}</div><input class="sv" type="text" id="r${i}" placeholder="姓名"></div>`).join('')+
+   '</div><div class="tip">展演要求：每组选一个场景，不超过 3 分钟，至少包含 1 个旅客文化追问。</div><div class="tip"><b>讲好中国故事三步法：</b>① Show（展示）：This is … ② Tell（讲述）：The story behind it is … ③ Link（连接世界）：It connects China and the world because …</div></div>';
+  SC.forEach((s,i)=>{
+    const chips=s[2].split('\n').map(l=>['列车长',l.split('|')[0]]).concat(s[3].split('\n').flatMap(l=>{const p=l.split('|');return[['旅客',p[0]],['列车长',p[1]]]}));
+    h+=`<div class="card"><h2>2.${i+1} 情境${'一二三四'[i]}：${s[0]}</h2><p class="note">点击参考句加入脚本，也可添加自己的台词。</p>
+    <div class="chips">${chips.map(c=>`<button class="chip" data-a="add" data-i="${i}" data-r="${c[0]}" data-t="${esc(c[1])}">${c[1]}</button>`).join('')}</div>
+    <div id="tl${i}"></div>
+    <div class="bar"><button class="bt pri" data-a="ad" data-i="${i}">+ 添加一轮对话</button><span class="note" id="qc${i}"></span></div>
+    <label for="ai${i}">AI 润色稿</label><textarea class="sv" id="ai${i}" placeholder="把本组初稿交给 AI 润色后，将结果粘贴在这里"></textarea>
+    <label for="am${i}">修改说明</label><input class="sv" type="text" id="am${i}" placeholder="我们改了什么？为什么这样改？"></div>`;
+  });
+  return h+'<div class="bar"><button class="bt pri" data-a="dn">下载脚本</button><button class="bt" data-a="rs">重置脚本</button></div>';
+}
+function rt(i){
+  $('tl'+i).innerHTML=sc[i].map((x,k)=>`<div class="tn"><select data-a="role" data-i="${i}" data-k="${k}" aria-label="角色">${ROLES.map(r=>`<option${r==x.r?' selected':''}>${r}</option>`).join('')}</select><textarea data-a="txt" data-i="${i}" data-k="${k}" rows="2" aria-label="台词">${esc(x.t)}</textarea><span class="bb"><button class="bt" data-a="up" data-i="${i}" data-k="${k}">↑</button><button class="bt" data-a="dw" data-i="${i}" data-k="${k}">↓</button><button class="bt" data-a="de" data-i="${i}" data-k="${k}">删除</button></span></div>`).join('');
+  chk(i);
+}
+function chk(i){const n=sc[i].filter(x=>x.r=='旅客'&&/[?？]/.test(x.t)).length;$('qc'+i).innerHTML=n?`旅客文化追问：<b class="ok">${n} 条</b>`:'旅客文化追问：<b class="no">0 条</b>（至少 1 条）'}
+function download(){
+  const g=id=>$(id).value||'未填写';let s=`小组：${g('gname')}\n角色：列车长 ${g('r0')}；乘务员1 ${g('r1')}；乘务员2 ${g('r2')}；列车员 ${g('r3')}\n`;
+  SC.forEach((c,i)=>{s+=`\n【情境${'一二三四'[i]}：${c[0]}】\n`+sc[i].map(x=>`${x.r}：${x.t}`).join('\n')+`\n[AI润色稿]\n${$('ai'+i).value}\n[修改说明] ${$('am'+i).value}\n`});
+  const u=URL.createObjectURL(new Blob(['\ufeff'+s],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='展演脚本.txt';a.click();URL.revokeObjectURL(u);
+}
+
+/* 多元评价 */
+const DM=[['语言表达',25,'发音准确、表达连贯、语速得当，服务用语地道'],['文化讲解',20,'内容准确，能按“展示—讲述—连接世界”讲好中国故事，自然运用词汇句型'],['追问应答',15,'听懂旅客文化追问，用英语完整准确回答'],['服务规范',25,'礼貌用语与流程规范，迎客、讲解、送别完整'],['团队协作',15,'分工明确、衔接流畅，3 分钟内完成']];
+const PM=[['词汇跟读','40 个词汇的平均跟读得分'],['对话录音','四个情境录音的完成情况'],['脚本两稿','提交初稿与 AI 润色稿，并写出修改说明']];
+const ni=(id,m)=>`<input class="sv" type="number" id="${id}" min="0" max="${m}" step="0.5" value="0">`;
+function evalHTML(){
+  return `<h1>多元评价</h1><p class="note">总评 100 分 = 过程性成绩 30 分 + 展演成绩 70 分（教师评 60% · 组间互评 30% · 自评 10%）</p>
+  <div class="card"><h2>过程性成绩（30 分）</h2><div class="sc"><table><thead><tr><th>项目</th><th>评分依据</th><th>满分</th><th>得分</th><th>系统数据</th></tr></thead><tbody>${PM.map((p,i)=>`<tr><td><b>${p[0]}</b></td><td>${p[1]}</td><td class="r">10</td><td>${ni('ep'+i,10)}</td><td>${i<2?`<button class="bt" data-a="sy" data-k="${i}">同步</button>`:'教师核对'}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="card"><h2>展演评分（折算 70 分）</h2><div class="bar" style="margin:0 0 10px"><label for="etm" style="margin:0">展演用时（秒）</label><input class="sv" type="number" id="etm" min="0" value="0" style="width:90px;padding:5px 6px;border:1px solid var(--bd);border-radius:6px"><span class="note" id="eded"></span></div>
+  <div class="sc"><table><thead><tr><th>维度</th><th>满分</th><th>优秀档描述</th><th>教师评</th><th>自评</th></tr></thead><tbody>${DM.map((d,i)=>`<tr><td><b>${d[0]}</b></td><td class="r">${d[1]}</td><td>${d[2]}</td><td>${ni('et'+i,d[1])}</td><td>${ni('es'+i,d[1])}</td></tr>`).join('')}</tbody></table></div>
+  <h3>组间互评（每组三项，各 10 分）</h3><p class="note" id="epn"></p>
+  <div class="sc"><table><thead><tr><th>评分小组</th><th>语言</th><th>文化</th><th>服务</th><th>操作</th></tr></thead><tbody id="epb"></tbody></table></div>
+  <div class="bar"><button class="bt" data-a="ap">添加互评小组</button></div></div>
+  <div class="card"><h2>评语与反思</h2><label for="ec0" style="margin-top:0">教师评语</label><textarea class="sv" id="ec0" placeholder="请输入教师评语"></textarea><label for="ec1">互评亮点</label><textarea class="sv" id="ec1"></textarea><label for="ec2">自评反思：我们的亮点与最需要改进的一点</label><textarea class="sv" id="ec2"></textarea></div>
+  <div class="card"><h2>成绩总览</h2><div class="stats" id="eov"></div><div class="tot"><span>本组总评</span><b id="etot">0</b></div>
+  <div class="two"><div><div id="erd"></div><div class="lg"><span><i style="background:#8b1a1a"></i>教师评</span><span><i style="background:#2e7d5b"></i>自评</span><span><i style="background:#d4a24c"></i>互评（语言、文化、服务）</span></div></div><div class="mu">雷达图按各维度得分率绘制。教师评与自评差距较大的维度，适合在复盘环节重点讨论。</div></div>
+  <div class="bar"><button class="bt pri" data-a="sr">保存本组成绩</button></div></div>
+  <div class="card"><h2>班级汇总（教师端）</h2><div class="sc"><table><thead><tr><th>名次</th><th>小组</th><th>过程性（30）</th><th>展演折算（70）</th><th>总评（100）</th></tr></thead><tbody id="cb"></tbody></table></div><p class="note" style="margin-top:12px">教师评各维度班级平均得分率</p><div class="stats" id="cd"></div>
+  <div class="bar"><button class="bt pri" data-a="ex">导出 Excel（CSV）</button><button class="bt" data-a="cl">清空班级数据</button></div></div>`;
+}
+const num=(el,m)=>{const v=parseFloat(el.value);return isNaN(v)?0:Math.min(Math.max(v,0),m)};
+function addPeer(v){
+  v=v||['',0,0,0];const tr=document.createElement('tr');
+  tr.innerHTML=`<td><input type="text" placeholder="评分小组" value="${esc(v[0])}"></td>`+[1,2,3].map(j=>`<td><input type="number" min="0" max="10" step="0.5" value="${parseFloat(v[j])||0}" style="width:68px;padding:5px 6px;border:1px solid var(--bd);border-radius:6px;font:inherit"></td>`).join('')+'<td><button class="bt" data-a="dp2">删除</button></td>';
+  $('epb').appendChild(tr);
+}
+function calc(){
+  const proc=[0,1,2].map(i=>num($('ep'+i),10)),sec=parseFloat($('etm').value)||0,ded=sec>180?Math.floor((sec-180)/10):0;
+  const t=DM.map((d,i)=>num($('et'+i),d[1])),s=DM.map((d,i)=>num($('es'+i),d[1]));
+  t[4]=Math.max(0,t[4]-ded);
+  let rows=Q('#epb tr').map(r=>Q('input[type=number]',r).map(e=>num(e,10)));
+  const n=rows.length;
+  if(n>=3)rows=rows.slice().sort((a,b)=>a[0]+a[1]+a[2]-b[0]-b[1]-b[2]).slice(1,-1);
+  const pa=[0,1,2].map(j=>rows.length?rows.reduce((a,r)=>a+r[j],0)/rows.length:0);
+  const T=t.reduce((a,b)=>a+b,0),S=s.reduce((a,b)=>a+b,0),Pp=(pa[0]+pa[1]+pa[2])/30*100;
+  const show=n?T*.6+Pp*.3+S*.1:(T*.6+S*.1)/.7,pr=proc.reduce((a,b)=>a+b,0),ex=show*.7;
+  return{pr,sec,ded,t,s,pa,n,used:rows.length,T,S,Pp,ex,total:pr+ex};
+}
+function radar(r){
+  const c=130,R=92,pt=(i,f)=>{const a=-Math.PI/2+i*2*Math.PI/5;return[c+R*f*Math.cos(a),c+R*f*Math.sin(a)]},q=p=>p.map(x=>x.toFixed(1)).join(',');
+  const poly=(fs,col,dash)=>{const p=fs.map((f,i)=>f==null?null:pt(i,f)).filter(Boolean);return p.length<2?'':`<polygon points="${p.map(q).join(' ')}" fill="${col}" fill-opacity="${dash?0:.12}" stroke="${col}" stroke-width="2"${dash?' stroke-dasharray="5 3"':''}/>`};
+  let g='';
+  [.25,.5,.75,1].forEach(f=>{g+=`<polygon points="${DM.map((_,i)=>q(pt(i,f))).join(' ')}" fill="none" stroke="#eadfce"/>`});
+  DM.forEach((d,i)=>{const e=pt(i,1),l=pt(i,1.2);g+=`<line x1="${c}" y1="${c}" x2="${e[0].toFixed(1)}" y2="${e[1].toFixed(1)}" stroke="#eadfce"/><text x="${l[0].toFixed(1)}" y="${(l[1]+4).toFixed(1)}" text-anchor="middle" font-size="12" fill="#8b1a1a">${d[0]}</text>`});
+  g+=poly(r.t.map((v,i)=>v/DM[i][1]),'#8b1a1a')+poly(r.s.map((v,i)=>v/DM[i][1]),'#2e7d5b')+(r.n?poly([r.pa[0]/10,r.pa[1]/10,null,r.pa[2]/10,null],'#d4a24c',1):'');
+  return`<svg viewBox="0 0 260 260" role="img" aria-label="五维得分率雷达图">${g}</svg>`;
+}
+function ev(){
+  const r=calc();
+  $('eded').textContent=r.ded?`超时 ${r.sec-180} 秒，教师评“团队协作”已扣 ${r.ded} 分`:'限时 3 分钟，超时每 10 秒扣 1 分（扣在团队协作）';
+  $('epn').textContent=r.n?`共 ${r.n} 组互评，${r.n>=3?'去掉最高、最低后取平均':'取平均'}（有效 ${r.used} 组）`:'尚无互评数据，展演成绩暂按教师评与自评的权重折算';
+  $('eov').innerHTML=[['过程性成绩',f1(r.pr),'/30'],['展演成绩（折算）',f1(r.ex),'/70'],['教师评',f1(r.T),'/100'],['互评',r.n?f1(r.Pp):'—','/100'],['自评',f1(r.S),'/100']].map(x=>`<div class="st"><span>${x[0]}</span><b>${x[1]}</b> <small class="mu">${x[2]}</small></div>`).join('');
+  $('etot').textContent=f1(r.total);$('erd').innerHTML=radar(r);
+  sv('pe',Q('#epb tr').map(tr=>Q('input',tr).map(e=>e.value)));
+}
+function cls(){
+  const a=ld('rc',[]).sort((x,y)=>y.total-x.total);
+  $('cb').innerHTML=a.length?a.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.n)}</td><td>${f1(x.pr)}</td><td>${f1(x.ex)}</td><td><b>${f1(x.total)}</b></td></tr>`).join(''):'<tr><td colspan="5" class="mu">暂无数据。填写完一组后，点击“保存本组成绩”。</td></tr>';
+  $('cd').innerHTML=a.length?DM.map((d,i)=>`<div class="st"><span>${d[0]}</span><b>${f1(a.reduce((s,x)=>s+x.t[i]/d[1],0)/a.length*100)}%</b></div>`).join(''):'';
+}
+function saveRec(){
+  const r=calc(),nm=$('gname').value.trim();
+  if(!nm){alert('请先在“小组”页填写小组名称');show(0);$('gname').focus();return}
+  const a=ld('rc',[]).filter(x=>x.n!==nm);a.push({n:nm,pr:r.pr,ex:r.ex,total:r.total,T:r.T,P:r.n?r.Pp:null,S:r.S,t:r.t});sv('rc',a);cls();
+}
+function exportCsv(){
+  const a=ld('rc',[]);if(!a.length){alert('暂无班级数据可导出');return}
+  const h=['小组','过程性(30)','展演折算(70)','总评(100)','教师评','互评','自评',...DM.map(d=>d[0])];
+  const l=a.map(x=>[x.n,x.pr,f1(x.ex),f1(x.total),f1(x.T),x.P==null?'':f1(x.P),f1(x.S),...x.t]);
+  const csv='\ufeff'+[h,...l].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const u=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),e=document.createElement('a');e.href=u;e.download=TASK.short+'多元评价成绩.csv';e.click();URL.revokeObjectURL(u);
+}
+function setVal(id,v){const el=$(id);el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}))}
+
+/* ========== 事件 ========== */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-a]');if(!b||/^(SELECT|TEXTAREA)$/.test(b.tagName))return;
+  const a=b.dataset.a,i=+b.dataset.i,k=+b.dataset.k;
+  if(a=='exportAll'){exportLearningPackage()}
+  else if(a=='say'){speechSynthesis.cancel();tok++;say(b.dataset.t)}
+  else if(a=='rec')score(b.dataset.t,b);
+  else if(a=='dp')playAll(i);
+  else if(a=='dr')recTog(i,b);
+  else if(a=='dy'){if(rec[i])new Audio(rec[i]).play();else $('ds'+i).textContent='当前没有可播放的录音（刷新页面后需重新录制）'}
+  else if(a=='dx'){if(rec[i])URL.revokeObjectURL(rec[i]);delete rec[i];delete audioSavePromises[i];deleteAudioRecord(i);const f=ld('r',{});delete f[i];sv('r',f);$('ds'+i).textContent='已删除录音'}
+  else if(a=='add'){sc[i].push({r:b.dataset.r,t:b.dataset.t});sv('sc',sc);rt(i)}
+  else if(a=='ad'){sc[i].push({r:'列车长',t:''});sv('sc',sc);rt(i)}
+  else if(a=='de'){sc[i].splice(k,1);sv('sc',sc);rt(i)}
+  else if(a=='up'&&k>0){[sc[i][k-1],sc[i][k]]=[sc[i][k],sc[i][k-1]];sv('sc',sc);rt(i)}
+  else if(a=='dw'&&k<sc[i].length-1){[sc[i][k+1],sc[i][k]]=[sc[i][k],sc[i][k+1]];sv('sc',sc);rt(i)}
+  else if(a=='dn')download();
+  else if(a=='rs'){if(confirm('确定清空四个情境的脚本吗？')){sc=[[],[],[],[]];sv('sc',sc);[0,1,2,3].forEach(rt)}}
+  else if(a=='sy'){
+    if(k==0){const v=ld('v',{});setVal('ep0',Math.round(Object.values(v).reduce((s,x)=>s+x,0)/VOC.length/10*2)/2)}
+    else{setVal('ep1',Math.round(Object.keys(ld('r',{})).length/DL.length*10*2)/2)}
+  }
+  else if(a=='ap'){addPeer();ev()}
+  else if(a=='dp2'){b.closest('tr').remove();ev()}
+  else if(a=='sr')saveRec();
+  else if(a=='ex')exportCsv();
+  else if(a=='cl'){if(confirm('确定清空全班已保存的成绩吗？')){sv('rc',[]);cls()}}
+});
+document.addEventListener('input',e=>{
+  const t=e.target,a=t.dataset.a;
+  if(a=='txt'||a=='role'){sc[+t.dataset.i][+t.dataset.k][a=='txt'?'t':'r']=t.value;sv('sc',sc);chk(+t.dataset.i)}
+  if(t.classList.contains('sv')){const f=ld('f',{});f[t.id]=t.value;sv('f',f)}
+  if(t.closest('#tab6'))ev();
+});
+
+/* ========== 初始化 ========== */
+const PJ=TASK.project||TASK.brand,SL=TASK.slogan||'';
+document.title=PJ+' · '+TASK.brand+'英语 · '+TASK.short;
+$('hb').textContent=TASK.icon+' '+PJ;$('hs').textContent=TASK.brand+'英语 · '+TASK.short;
+$('ft').textContent=PJ+(SL?' · '+SL:'')+' | '+TASK.brand+'英语 · '+TASK.short+' | 高铁乘务英语实训系统 | 数据本地存储';
+$('t0h').textContent=TASK.title;$('t0s').textContent=PJ+(SL?' · '+SL:'');$('gt').value=TASK.title+' 高铁乘务英语实训';
+$('intro').innerHTML=TASK.intro;$('feat').innerHTML='<b>特色功能：</b>'+TASK.feature;
+$('bri').hidden=!TASK.bri;if(TASK.bri)$('bri').innerHTML='<b>一带一路连接点：</b>'+TASK.bri;
+if(TASK.caseInfo)['cs1','cs2','cs3'].forEach((id,i)=>{$(id).value=TASK.caseInfo[i]||''});
+$('ch').textContent=TASK.title+' 乘务服务案例';
+$('stg').innerHTML='<b>阶段：</b>'+TASK.caseStage;$('cdsc').innerHTML='<b>案例描述：</b>'+TASK.caseDesc;$('ckey').innerHTML='<b>案例要点：</b>'+TASK.caseKey;
+function show(n){
+  Q('.tab').forEach((s,k)=>{s.hidden=k!=n});Q('#nv button').forEach((b,k)=>b.classList.toggle('on',k==n));
+  if(n==2)$('tab2').innerHTML=vocab();
+  scrollTo(0,0);
+}
+$('nv').innerHTML=TABS.map((t,i)=>`<button type="button" data-n="${i}">${t}</button>`).join('');
+$('nv').addEventListener('click',e=>{const b=e.target.closest('button');if(b)show(+b.dataset.n)});
+$('pr').onclick=()=>{$('tab2').innerHTML=vocab();print()};
+$('tab2').innerHTML=vocab();$('tab3').innerHTML=sents();$('tab4').innerHTML=dialogs();$('tab5').innerHTML=perf();$('tab6').innerHTML=evalHTML();
+const F=ld('f',{});Object.keys(F).forEach(id=>{const el=$(id);if(el)el.value=F[id]});
+ld('pe',[]).forEach(addPeer);
+[0,1,2,3].forEach(rt);ev();cls();show(0);restoreRecordings();
+</script>
+</body>
+</html>

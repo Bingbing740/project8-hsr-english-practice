@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一带一路文化专列 · 用英语讲好中国故事</title>
+<style>
+:root{--r:#8b1a1a;--g:#d4a24c;--bg:#fdf8f0;--tx:#3a2a2a;--mu:#7a6a64;--bd:#eadfce}
+*{box-sizing:border-box}
+body{margin:0;color:var(--tx);background-color:var(--bg);
+  background-image:repeating-linear-gradient(45deg,#8b1a1a0d 0 1px,transparent 1px 30px),repeating-linear-gradient(-45deg,#8b1a1a0d 0 1px,transparent 1px 30px);
+  font:15px/1.7 "Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
+.hero{position:relative;overflow:hidden;text-align:center;color:#fff;padding:44px 20px 64px;
+  background:linear-gradient(135deg,#5e0f0f,#8b1a1a 55%,#a52a2a);border-bottom:3px solid var(--g)}
+.hero::before{content:"";position:absolute;inset:0;opacity:.12;
+  background-image:repeating-linear-gradient(45deg,#fff 0 1px,transparent 1px 26px),repeating-linear-gradient(-45deg,#fff 0 1px,transparent 1px 26px)}
+.hero>*{position:relative}
+.eyebrow{display:inline-block;padding:2px 14px;border:1px solid #ffffff66;border-radius:20px;font-size:13px;letter-spacing:2px;color:#f6dca4}
+h1{margin:14px 0 6px;font-size:clamp(28px,5vw,44px);letter-spacing:4px;line-height:1.3}
+h1 svg{width:1.1em;height:1.1em;vertical-align:-.12em;margin-right:.2em}
+.slogan{margin:0;font-size:clamp(16px,2.4vw,21px);color:#f6dca4;letter-spacing:3px}
+.sub{margin:10px 0 0;font-size:14px;opacity:.85}
+.stats{display:flex;justify-content:center;gap:10px 28px;flex-wrap:wrap;margin-top:22px}
+.stats b{display:block;font-size:24px;color:#fff;line-height:1.2}
+.stats span{font-size:12px;color:#f6dca4}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+.route{margin:-34px auto 28px;max-width:1080px;padding:0 18px}
+.route ol{list-style:none;margin:0;padding:16px 8px 12px;display:grid;grid-template-columns:repeat(8,1fr);background:#fff;border-radius:14px;box-shadow:0 6px 22px #8b1a1a22;position:relative}
+.route ol::before{content:"";position:absolute;left:6.25%;right:6.25%;top:31px;height:3px;background:repeating-linear-gradient(90deg,var(--g) 0 10px,transparent 10px 16px)}
+.route li{text-align:center;position:relative}
+.route a{color:var(--tx);text-decoration:none;font-size:13px;display:block}
+.route i{display:grid;place-items:center;width:30px;height:30px;margin:0 auto 4px;border-radius:50%;background:var(--r);color:#fff;font:700 14px/1 inherit;border:3px solid #fff;box-shadow:0 0 0 2px var(--g);font-style:normal}
+.route a:hover i{background:var(--g);color:#4a1010}
+.route a:focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:6px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-bottom:10px}
+.card{position:relative;overflow:hidden;display:flex;flex-direction:column;background:#fff;border-radius:14px;padding:20px 18px 18px;
+  box-shadow:0 2px 12px #8b1a1a14;transition:transform .2s,box-shadow .2s;animation:up .5s both}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--c)}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 26px #8b1a1a2a}
+.mark{position:absolute;right:8px;top:14px;font:700 76px/1 "Noto Serif SC","Songti SC",serif;color:var(--c);opacity:.09;pointer-events:none}
+.no{display:flex;gap:8px;align-items:center;font-size:12px;font-weight:700;color:var(--c);letter-spacing:1px}
+.st{padding:0 8px;border-radius:10px;background:#e4f3ea;color:#2a6e4f;font-weight:400}
+h2{margin:8px 0 0;font-size:19px;line-height:1.35}
+h2 small{display:block;font-size:14px;font-weight:600;color:var(--mu)}
+.en{margin:6px 0 0;padding-bottom:8px;border-bottom:1px solid var(--bd);font:italic 13px/1.4 Georgia,serif;color:var(--mu)}
+.d{margin:10px 0 8px;font-size:13.5px;color:#5a4a46;flex:1}
+.chip{align-self:flex-start;margin-bottom:14px;padding:1px 10px;border-radius:12px;font-size:12px;color:var(--c);background:color-mix(in srgb,var(--c) 10%,white);border:1px solid color-mix(in srgb,var(--c) 30%,white)}
+.go{display:block;text-align:center;padding:9px 12px;border-radius:10px;background:var(--c);color:#fff;font-weight:700;text-decoration:none;font-size:14px}
+.go::after{content:"";position:absolute;inset:0}
+.go:hover{filter:brightness(1.12)}
+.go:focus-visible{outline:3px solid var(--g);outline-offset:3px}
+.tips{margin:26px 0 0;padding:16px 20px;background:#fbf3e4;border-left:4px solid var(--g);border-radius:8px;font-size:13.5px}
+.tips b{color:var(--r)}
+.tips ul{margin:6px 0 0;padding-left:20px}
+.mods{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:22px 0 0}
+.mods span{padding:3px 14px;border-radius:16px;background:#fff;border:1px solid var(--bd);font-size:13px;color:var(--r)}
+footer{text-align:center;color:var(--mu);font-size:12px;padding:26px 16px 30px}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.route{display:none}.hero{padding-bottom:40px}.grid{margin-top:24px}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.card{animation:none;transition:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="eyebrow">中国传统文化主题专列英语实训系统</span>
+  <h1><svg viewBox="0 0 24 24" fill="none" stroke="#f6dca4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="4"/><path d="M5 11h14M9 21l2-4m4 4-2-4M9 7h.01M15 7h.01"/></svg>一带一路文化专列</h1>
+  <p class="slogan">用英语讲好中国故事</p>
+  <p class="sub">八站一线 · 衣食住行游用礼传</p>
+  <div class="stats">
+    <div><b>8</b><span>个文化站点</span></div>
+    <div><b>272</b><span>条情境句型</span></div>
+    <div><b>72</b><span>组旅客文化追问</span></div>
+    <div><b>32</b><span>段完整对话</span></div>
+  </div>
+  <p class="sub" style="margin-top:16px;font-size:13px">每站 40 个词汇 = 10 个服务通用词 + 20 个文化专题词 + 4 个“一带一路”词 + 6 个拓展词</p>
+</header>
+
+<nav class="route" aria-label="八站线路"><ol id="route"></ol></nav>
+
+<main class="wrap">
+  <section class="grid" id="grid" aria-label="八个实训任务"></section>
+  <div class="mods" aria-label="每站实训模块"><span>小组</span><span>案例信息</span><span>词汇</span><span>句型</span><span>对话卡片</span><span>模拟展演</span><span>多元评价</span></div>
+  <div class="tips"><b>使用提示</b>
+    <ul>
+      <li>每个任务都是一套完整的实训系统，建议按任务一至八的顺序学习，也可以直接进入任意一站。</li>
+      <li>请使用 Chrome 或 Edge 浏览器，并允许麦克风权限，语音跟读评分和对话录音才能使用。</li>
+      <li>填写的内容和成绩保存在本机浏览器中，更换设备或浏览器后不会同步。</li>
+    </ul>
+  </div>
+</main>
+<footer>一带一路文化专列 · 用英语讲好中国故事 | 高铁乘务英语实训系统</footer>
+
+<script>
+/* 只需要在这里修改：href 是各任务页面的文件名 */
+const TASKS=[
+  {n:'一',tag:'衣',name:'衣锦专列',st:'苏州站',en:'Attire Themed Train',href:'task1_suzhou.html',c:'#2f5f96',
+   d:'宋锦、苏绣非遗文化。将传统丝织工艺融入乘务服务，讲好中国丝绸故事。',bri:'丝绸与丝路得名'},
+  {n:'二',tag:'食',name:'舌尖高铁',st:'广州站',en:'Taste Themed Train',href:'task2_guangzhou.html',c:'#94650b',
+   d:'早茶习俗、粤式茶楼文化。在“一盅两件”中展现广府人的待客之道。',bri:'海上丝路重要港口'},
+  {n:'三',tag:'住',name:'雅居专列',st:'泉州站',en:'Dwelling Themed Train',href:'task3_quanzhou.html',c:'#a8322a',
+   d:'闽南红砖古厝、多元宗教建筑。在海上丝绸之路起点感受东方人居之美。',bri:'海上丝路起点'},
+  {n:'四',tag:'行',name:'丝路动车',st:'西安站',en:'Silk Road Themed Train',href:'task4_xian.html',c:'#2a6e4f',
+   d:'陆上丝路起点、驼铃古道。串联古今交通变迁，感受高铁出海的时代脉搏。',bri:'陆上丝路起点 · 中欧班列'},
+  {n:'五',tag:'游',name:'山河专列',st:'敦煌站',en:'Mountains and Rivers Themed Train',href:'task5_dunhuang.html',c:'#67479a',
+   d:'莫高窟壁画艺术、丝路文明交汇。在飞天壁画中领略千年文化交融。',bri:'丝路要冲 · 互学互鉴'},
+  {n:'六',tag:'用',name:'百工专列',st:'景德镇站',en:'Craftsmanship Themed Train',href:'task6_jingdezhen.html',c:'#1a58a0',
+   d:'青花瓷制瓷工艺、千年瓷都。用流利的英语向世界讲述“China”的故事。',bri:'瓷器出海'},
+  {n:'七',tag:'礼',name:'礼乐专列',st:'曲阜站',en:'Ritual and Music Themed Train',href:'task7_qufu.html',c:'#a85a10',
+   d:'孔子礼乐文化、儒家思想。在礼仪之邦传递“礼之用，和为贵”的待客智慧。',bri:'和而不同 · 互学互鉴'},
+  {n:'八',tag:'传',name:'薪火专列',st:'北京站',en:'Heritage Themed Train',href:'task8_beijing.html',c:'#b3202b',
+   d:'文明互鉴、当代“一带一路”倡议。在专列终点站完成八站文化的总结与升华。',bri:'高峰论坛举办地'}
+];
+function started(i){
+  try{const p='qz_task'+(i+1)+'_';for(let k=0;k<localStorage.length;k++)if(localStorage.key(k).indexOf(p)===0)return true}catch(e){}
+  return false;
+}
+document.getElementById('grid').innerHTML=TASKS.map((t,i)=>`
+  <article class="card" style="--c:${t.c};animation-delay:${i*60}ms">
+    <span class="mark" aria-hidden="true">${t.tag}</span>
+    <div class="no">任务${t.n} · ${t.tag}${started(i)?'<span class="st">已开始</span>':''}</div>
+    <h2>${t.name} · ${t.st}</h2>
+    <p class="en">${t.en}</p>
+    <p class="d">${t.d}</p>
+    <span class="chip">${t.bri}</span>
+    <a class="go" href="${t.href}" aria-label="进入${t.name}·${t.st}实训系统">进入实训系统 →</a>
+  </article>`).join('');
+document.getElementById('route').innerHTML=TASKS.map((t,i)=>`<li><a href="${t.href}"><i>${i+1}</i>${t.st.replace('站','')}</a></li>`).join('');
+</script>
+</body>
+</html>
